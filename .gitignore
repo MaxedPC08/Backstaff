@@ -3,6 +3,8 @@ camera-params.json
 params.json
 .saves
 /RosWS
+/astrolabe_data
+astrolabe_settings.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
