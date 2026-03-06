@@ -95,10 +95,11 @@ class Optimizer:
 
         print(np.array(self.prev_weights).shape)
         if len(self.prev_weights) == 0:
-            return self.clip_weights(self.current + np.random.randn(*self.current.shape) * self.stoc_rates)
+            return self.clip_weights(self.current + np.linalg.norm(np.random.randn(*self.current.shape)) * self.stoc_rates * self.learning_rate)
         
         if len(self.prev_weights) <= len(self.current):
-            self.current = self.clip_weights(self.prev_weights[int(np.argmin(np.array(self.prev_losses)))] + np.random.randn(*self.current.shape) * self.stoc_rates)
+            self.current = self.clip_weights(self.prev_weights[int(np.argmin(np.array(self.prev_losses)))] + 
+                                             np.linalg.norm(np.random.randn(*self.current.shape)) * self.stoc_rates * self.learning_rate)
             return self.current
         
         prev_weights_arr = np.array(self.prev_weights)[:-1]
@@ -118,7 +119,7 @@ class Optimizer:
         return self.current
     
     def _ask_greedy(self):
-        if len(self.prev_weights) <= 2:
+        if len(self.prev_weights) <= 3:
             return self.clip_weights(self.current + np.random.randn(*self.current.shape) * self.stoc_rates)
 
         # Find the best previous weights (lowest loss)

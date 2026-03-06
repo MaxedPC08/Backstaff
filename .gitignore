@@ -5,6 +5,11 @@ params.json
 /RosWS
 /astrolabe_data
 astrolabe_settings.json
+/main.build
+/main.dist
+/backstaff_data
+backstaff_settings.json
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
