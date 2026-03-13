@@ -1,7 +1,1 @@
-pyinstaller main.py \                                                                                                                                                  ─╯
-          --name Backstaff \
-          --onefile \
-          --noconfirm \
-          --clean \
-          --add-data "Reinforcement:Reinforcement" \
-          --hidden-import PyQt5.sip
+pyinstaller main.py --name Backstaff --onefile --noconfirm --clean --add-data "Reinforcement;Reinforcement" --add-data "ui;ui" --hidden-import PyQt5.sip --hidden-import numpy

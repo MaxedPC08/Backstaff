@@ -4,6 +4,9 @@ from datetime import datetime
 import numpy as np
 from typing import Dict, Any
 
+from ui.model_manager import ModelManager
+from ui.settings_manager import Settings
+
 from PyQt5.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QSpinBox, QDoubleSpinBox,
     QComboBox, QTableWidget, QTableWidgetItem, QDialog, QMessageBox,
@@ -212,6 +215,9 @@ class MainContentWidget(QWidget):
         
         self.tune_btn = QPushButton("Execute Tuning")
         self.tune_btn.setMinimumHeight(40)
+        tune_font = QFont()
+        tune_font.setPointSize(14)
+        self.tune_btn.setFont(tune_font)
         self.tune_btn.clicked.connect(self.tune_model)
         
         self.clear_btn = QPushButton("Clear")
@@ -283,10 +289,12 @@ class MainContentWidget(QWidget):
         layout.setSpacing(10)
         
         # Add title
-        layout.addWidget(QLabel("Model Configuration:"))
-        # Style the label to match group box titles
-        config_label = layout.itemAt(layout.count() - 1).widget()
+        config_label = QLabel("Model Configuration:")
+        config_label_font = QFont()
+        config_label_font.setPointSize(13)
+        config_label.setFont(config_label_font)
         config_label.setStyleSheet("font-weight: bold;")
+        layout.addWidget(config_label)
         
         # Config display
         scroll = QScrollArea()
@@ -295,6 +303,9 @@ class MainContentWidget(QWidget):
         self.config_display.setTextFormat(Qt.RichText)
         self.config_display.setWordWrap(True)
         self.config_display.setAlignment(Qt.AlignTop | Qt.AlignLeft)
+        config_display_font = QFont()
+        config_display_font.setPointSize(12)
+        self.config_display.setFont(config_display_font)
         dark_mode = self.settings.get("dark_mode", False)
         if dark_mode:
             self.config_display.setStyleSheet("background-color: #2d2d2d; padding: 10px; border-radius: 4px; color: #e0e0e0; border: 1px solid #444444;")
@@ -315,6 +326,7 @@ class MainContentWidget(QWidget):
         layout.addLayout(button_layout)
         
         widget.setLayout(layout)
+        widget.setMinimumWidth(500)
         return widget
     
     def create_params_loss_tab(self):
